@@ -1,7 +1,10 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"log"
+	"net/http"
 	"strconv"
 	"strings"
 )
@@ -9,28 +12,45 @@ import (
 func main() {
 
 	recebe := "91468384066"
-
 	agrupa(recebe)
 
 	troca := make([]int, 11)
-	copy(troca, cpf)
-	cpfgiro = troca
+	copy(troca, cpfint)
 
+	cpfgiro = troca
 	calc(cpfgiro)
 
-	fmt.Println(compara(cpf, cpfOk))
+	valido = compara(cpfint, cpfOk)
+	fmt.Println(valido)
 
-	if compara(cpf, cpfOk) == true {
+	if valido == true {
 		formata(cpfOk)
 	} else {
-		fmt.Println("CPF INVÁLIDO!")
+		formata(cpfint)
 	}
+
+	Resp = Resposta{valido, formatado}
+
+	fmt.Println(Resp)
+	fmt.Println("Iniciando o servidor Rest com Go")
+
+	HandleRequest()
 }
 
-var cpf []int
+var cpfint []int
 var cpfgiro []int
 var cpfOk []int
 var cpfForm []string
+
+var valido bool
+var formatado string
+
+type Resposta struct {
+	Valido    bool   `json:"Valido"`
+	Formatado string `json:"Formatado"`
+}
+
+var Resp Resposta
 
 func agrupa(cpfSt string) []int {
 	for _, num := range cpfSt {
@@ -38,9 +58,9 @@ func agrupa(cpfSt string) []int {
 		if err != nil {
 			fmt.Println("Erro:", nil)
 		}
-		cpf = append(cpf, intnum)
+		cpfint = append(cpfint, intnum)
 	}
-	return cpf
+	return cpfint
 }
 
 func calc(x []int) []int {
@@ -113,7 +133,6 @@ func formata(cpfOki []int) {
 	for j, k := range cpfOki {
 		cpfOks[j] = strconv.Itoa(k)
 	}
-
 	cpfOks = append(cpfOks, ".", "-", ".")
 
 	cpfForm = append(cpfForm, cpfOks[:3]...)
@@ -124,6 +143,15 @@ func formata(cpfOki []int) {
 	cpfForm = append(cpfForm, cpfOks[12:13]...)
 	cpfForm = append(cpfForm, cpfOks[9:11]...)
 
-	cpfForm2 := strings.Join(cpfForm, " ")
-	fmt.Println(cpfForm2)
+	formatado = strings.Join(cpfForm, " ")
+	fmt.Println(formatado)
+}
+
+func HandleRequest() {
+	http.HandleFunc("/valida-cpf", Retorna)
+	log.Fatal(http.ListenAndServe(":8080", nil))
+}
+
+func Retorna(w http.ResponseWriter, r *http.Request) {
+	json.NewEncoder(w).Encode(Resp)
 }
