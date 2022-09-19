@@ -10,148 +10,121 @@ import (
 )
 
 func main() {
+	fmt.Println("Iniciando o servidor REST na porta 8080")
+	fmt.Println("Ex.: http://localhost:8080/valida-cpf?numero=91468384066")
 
-	recebe := "91468384066"
-	agrupa(recebe)
+	http.HandleFunc("/valida-cpf", ValidaCPF)
 
-	troca := make([]int, 11)
-	copy(troca, cpfint)
-
-	cpfgiro = troca
-	calc(cpfgiro)
-
-	valido = compara(cpfint, cpfOk)
-	fmt.Println(valido)
-
-	if valido == true {
-		formata(cpfOk)
-	} else {
-		formata(cpfint)
-	}
-
-	Resp = Resposta{valido, formatado}
-
-	fmt.Println(Resp)
-	fmt.Println("Iniciando o servidor Rest com Go")
-
-	HandleRequest()
-}
-
-var cpfint []int
-var cpfgiro []int
-var cpfOk []int
-var cpfForm []string
-
-var valido bool
-var formatado string
-
-type Resposta struct {
-	Valido    bool   `json:"Valido"`
-	Formatado string `json:"Formatado"`
-}
-
-var Resp Resposta
-
-func agrupa(cpfSt string) []int {
-	for _, num := range cpfSt {
-		intnum, err := strconv.Atoi(string(num))
-		if err != nil {
-			fmt.Println("Erro:", nil)
-		}
-		cpfint = append(cpfint, intnum)
-	}
-	return cpfint
-}
-
-func calc(x []int) []int {
-	total := 0
-	mult := 10
-
-	cpfOk = append(x[:9])
-
-	for _, v := range cpfOk {
-		total += v * mult
-		mult--
-	}
-
-	res1 := 11 - (total % 11)
-	switch {
-	case res1 >= 10:
-		d1 := 0
-		cpfOk = append(cpfOk, d1)
-	case res1 < 10:
-		d1 := res1
-		cpfOk = append(cpfOk, d1)
-	}
-
-	mult = 11
-	total = 0
-
-	for _, v := range cpfOk {
-		total += v * mult
-		mult--
-	}
-
-	res2 := 11 - (total % 11)
-	switch {
-	case res2 >= 10:
-		d1 := 0
-		cpfOk = append(cpfOk, d1)
-	case res2 < 10:
-		d1 := res2
-		cpfOk = append(cpfOk, d1)
-	}
-
-	return cpfOk
-}
-
-func compara(cpfi []int, cpfOki []int) bool {
-
-	cpfs := make([]string, len(cpfi))
-	for i, x := range cpfi {
-		cpfs[i] = strconv.Itoa(x)
-	}
-
-	cpfOks := make([]string, len(cpfOki))
-	for j, k := range cpfOki {
-		cpfOks[j] = strconv.Itoa(k)
-	}
-
-	cpfs2 := strings.Join(cpfs, " ")
-	cpfOks2 := strings.Join(cpfOks, " ")
-
-	if cpfs2 != cpfOks2 {
-		return false //fmt.Println("CPF INVÁLIDO!")
-	} else {
-		return true //fmt.Println("CPF OK!")
-	}
-}
-
-func formata(cpfOki []int) {
-
-	cpfOks := make([]string, len(cpfOki))
-	for j, k := range cpfOki {
-		cpfOks[j] = strconv.Itoa(k)
-	}
-	cpfOks = append(cpfOks, ".", "-", ".")
-
-	cpfForm = append(cpfForm, cpfOks[:3]...)
-	cpfForm = append(cpfForm, cpfOks[11:12]...)
-	cpfForm = append(cpfForm, cpfOks[3:6]...)
-	cpfForm = append(cpfForm, cpfOks[11:12]...)
-	cpfForm = append(cpfForm, cpfOks[6:9]...)
-	cpfForm = append(cpfForm, cpfOks[12:13]...)
-	cpfForm = append(cpfForm, cpfOks[9:11]...)
-
-	formatado = strings.Join(cpfForm, " ")
-	fmt.Println(formatado)
-}
-
-func HandleRequest() {
-	http.HandleFunc("/valida-cpf", Retorna)
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
-func Retorna(w http.ResponseWriter, r *http.Request) {
-	json.NewEncoder(w).Encode(Resp)
+func converteCPF(cpfstr string) ([]int, error) {
+	var cpfint []int
+	for _, numstr := range cpfstr {
+		numstr, err := strconv.Atoi(string(numstr))
+		if err != nil {
+			return nil, err
+		}
+		cpfint = append(cpfint, numstr)
+	}
+	return cpfint, nil
+}
+
+func recalculaCPF(cpfint []int) []int {
+	// duplica os 9 primeiros digitos do cpfint para uma nova variavel
+	var cpfpart []int
+	cpfpart = append(cpfpart, cpfint[:9]...)
+
+	// calcula digito verificador 1
+	multiplicador := 10
+	total := 0
+
+	for _, v := range cpfpart {
+		total += v * multiplicador
+		multiplicador--
+	}
+
+	digito1 := 11 - (total % 11)
+
+	switch {
+	case digito1 >= 10:
+		cpfpart = append(cpfpart, 0)
+	case digito1 < 10:
+		cpfpart = append(cpfpart, digito1)
+	}
+
+	// calcula digito verificador 2
+	multiplicador = 11
+	total = 0
+
+	for _, v := range cpfpart {
+		total += v * multiplicador
+		multiplicador--
+	}
+
+	digito2 := 11 - (total % 11)
+
+	switch {
+	case digito2 >= 10:
+		cpfpart = append(cpfpart, 0)
+	case digito2 < 10:
+		cpfpart = append(cpfpart, digito2)
+	}
+
+	return cpfpart
+}
+
+func comparaCPFs(cpf1int []int, cpf2int []int) bool {
+	cpf1str := make([]string, len(cpf1int))
+	for k, v := range cpf1int {
+		cpf1str[k] = strconv.Itoa(v)
+	}
+
+	cpf2str := make([]string, len(cpf2int))
+	for k, v := range cpf2int {
+		cpf2str[k] = strconv.Itoa(v)
+	}
+
+	cpf1 := strings.Join(cpf1str, "")
+	cpf2 := strings.Join(cpf2str, "")
+
+	return cpf1 == cpf2
+}
+
+func formataCPF(cpfint []int) string {
+	cpfstr := make([]string, len(cpfint))
+	for k, v := range cpfint {
+		cpfstr[k] = strconv.Itoa(v)
+	}
+
+	part1 := strings.Join(cpfstr[:3], "")
+	part2 := strings.Join(cpfstr[3:6], "")
+	part3 := strings.Join(cpfstr[6:9], "")
+	part4 := strings.Join(cpfstr[9:], "")
+
+	return fmt.Sprintf("%s.%s.%s-%s", part1, part2, part3, part4)
+}
+
+type Resposta struct {
+	Valido    bool   `json:"valido"`
+	Formatado string `json:"formatado"`
+}
+
+func ValidaCPF(rw http.ResponseWriter, r *http.Request) {
+	enc := json.NewEncoder(rw)
+
+	cpfstr := r.URL.Query().Get("numero")
+
+	cpfint, err := converteCPF(cpfstr)
+	if err != nil {
+		enc.Encode("CPF invalido")
+		return
+	}
+
+	recalculado := recalculaCPF(cpfint)
+
+	valido := comparaCPFs(cpfint, recalculado)
+	formatado := formataCPF(cpfint)
+
+	enc.Encode(Resposta{valido, formatado})
 }
