@@ -1,0 +1,95 @@
+
+
+  .banner-principal{
+    position: absolute;
+    width: 100vw;
+    top: 56px;
+    right: 0px;
+    left: 0px;
+    z-index: 0;           
+    }
+    
+      
+      .texto-grid{
+        position: absolute;
+        display: grid;
+        grid-template-columns: 400px;
+        z-index: 50;
+        margin-left: 190px;
+        margin-top: -135px;
+      } 
+
+      @media (max-width: 665px) {
+        .texto-grid {
+        margin-left: 105px;
+        grid-template-columns: 310px;
+      }
+    }
+
+
+      .Titulo1{
+        font-size: 40px;
+        color:rgb(45, 206, 255);
+        font-family: Arial;
+        font-weight: bold;
+        }
+
+      .Frase1{
+        font-size: 20px;
+        color:white;
+        font-family: Arial;
+        font-weight: bold;
+        margin-top: 0;
+        }
+      
+      .Frase2{
+        font-size: 17px;
+        color:white;
+        font-family: Arial;
+        margin-top: 1px;
+        }
+        
+  
+      .botao-central{
+        cursor: pointer;
+        width: 235px;
+        height: 45px;
+        border-radius: 5px;
+        border: none;
+        font-size: 14px;
+        font-weight: bold;
+        color: rgb(55, 55, 255);
+        margin-top: 2px;
+        }
+
+    .botao-grid{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-top: 300px;
+    }
+
+    .botao-redondo-esq{
+      z-index: 50;
+      cursor: pointer;
+      width: 74px;
+      height: 74px;
+      border-radius: 37px;
+      border: none;
+      font-size: 30px;
+      color: rgb(55, 55, 255);
+      }
+
+      .botao-redondo-dir{
+      z-index: 50;
+      cursor: pointer;
+      width: 74px;
+      height: 74px;
+      border-radius: 37px;
+      border: none;
+      font-size: 30px;
+      color: rgb(55, 55, 255);
+      z-index: 10; 
+    }
+
+    

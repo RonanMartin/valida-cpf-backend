@@ -1,0 +1,107 @@
+.header{
+  height: 75px;  
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+    
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: 100;
+  min-width: 600px;
+  
+  background-color: white;
+  box-shadow: 0px 0px 12px 1px rgba(0, 0, 0, 0.12);
+  }
+
+  .left-section{
+  align-items: center;
+  display:flex;  
+  margin-left: 12px;
+  }
+
+  .logo{
+  cursor: pointer;
+  height: 64px;
+  }
+
+  .botao-inicio{
+    margin-left: 30px;
+    font-size: 15px;
+    border: none;
+    background-color: rgb(255, 255, 255);
+    padding-top: 27px;
+    padding-bottom: 27px;
+    padding-left: 0;
+    padding-right: 0;
+    cursor: pointer;
+    width: 35px;
+  }
+
+  .botao-valide{
+    margin-left: 30px;
+    font-size: 15px;
+    border: none;
+    background-color: rgb(255, 255, 255);
+    padding-top: 27px;
+    padding-bottom: 27px;
+    padding-left: 0;
+    padding-right: 0;
+    cursor: pointer;
+    width: 105px;
+  }
+
+  .botao-sobre{
+    margin-left: 30px;
+    font-size: 15px;
+    border: none;
+    background-color: rgb(255, 255, 255);
+    padding-top: 27px;
+    padding-bottom: 27px;
+    padding-left: 0;
+    padding-right: 0;
+    cursor: pointer;
+    width: 70px;
+  }
+
+  .botao-inicio:hover,
+  .botao-valide:hover,
+  .botao-sobre:hover{
+    border-top-width:2px;
+    border-top-style: solid;
+    border-top-color:white;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-bottom-color:rgb(55, 55, 255);
+    color: rgb(55, 55, 255);
+  }
+
+ 
+
+  .botao-cliente{
+    margin-right: 30px;
+    font-size: 14px;
+    border: none;
+    top: 13px;
+    background-color: rgb(239, 241, 252);
+    padding-top: 16px;
+    padding-bottom: 16px;
+    padding-right: 40px;
+    padding-left: 22px;
+    cursor: pointer;  
+    color: rgb(55, 55, 255);
+    position: relative;
+    border-radius: 5px;
+    width: 160px;
+    margin-left: 30px;
+    }
+
+  .down{    
+    align-items: center;
+    position: absolute;
+    right: 15px;
+    top: -35px;
+    font-size: 30px;
+    }

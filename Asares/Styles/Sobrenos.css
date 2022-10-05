@@ -1,0 +1,116 @@
+
+      .sobre-grid{
+        position: relative;
+        top: 70px;
+        
+      }
+
+      .texto1{
+        margin-top: 50px;
+        margin-left: 0;
+        margin-right: 0;
+        margin-bottom: 50px;
+        color: rgb(61, 61, 61);
+        font-family: Helvetica;
+        font-size: 250%;
+        text-align: center;
+      }
+
+      .center-section{
+        display: grid;
+        grid-template-columns: 1fr 3fr 3fr 1fr;
+      }
+
+
+      .foto-grid{
+        width: 100%;
+        margin-left: 20px;
+        display: flex;
+        align-items: center; 
+    }
+    
+
+      .foto{
+        min-width: 300px;
+        max-width: 400px;
+        width: 100%;
+      
+      }
+
+      .texto-centro{
+        margin-left: 20px;
+      }
+
+      .texto2{
+        margin-top: 50px;
+        margin-left: 10px;        
+        min-width: 300px;        
+        color: #270cfd;
+        font-family: Helvetica;
+        font-size: 180%;
+        font-weight: bold;
+      }
+
+      .texto3{
+        color: rgb(61, 61, 61);
+        font-family: Helvetica;
+        font-size: 110%;
+        margin-left: 10px;
+      }
+
+      .texto5{
+        margin-top: 50px;
+        margin-left: 0;
+        margin-right: 0;
+        margin-bottom: 50px;
+        color: rgb(61, 61, 61);
+        font-family: Helvetica;
+        font-size: 200%;
+        text-align: center;
+      }
+
+      .nossa-historia{
+        display: grid;
+        grid-template-columns: 2fr 9fr 2fr;       
+      }
+
+      .caixa-historia{
+        display: grid;
+        grid-template-columns: 2fr 1fr;       
+        background-color: #60b2ff;
+        width: 100%;
+        height: 100%;
+        border-radius: 15px;    
+        padding-left: 30px;    
+        min-width: 500px;
+      }
+
+      .titulo2{
+        color: rgb(255, 255, 255);
+        font-family: Helvetica;
+        margin-bottom: 0px;
+      }
+
+      .titulo3{
+        color: #270cfd;
+        font-family: Helvetica;
+        margin-top: 0px;
+      }
+
+      .texto4{
+        color: rgb(255, 255, 255);
+        font-family: Helvetica;
+      }
+
+      .logo-grid{
+        display: flex;
+        align-items: center;
+      }
+
+      .logo2{
+        margin-top: px;
+        margin-left: 50px;        
+        width: 170px;         
+      }
+
+    
