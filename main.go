@@ -126,5 +126,7 @@ func ValidaCPF(rw http.ResponseWriter, r *http.Request) {
 	valido := comparaCPFs(cpfint, recalculado)
 	formatado := formataCPF(cpfint)
 
+	rw.Header().Set("Access-Control-Allow-Origin", "*")
+
 	enc.Encode(Resposta{valido, formatado})
 }
