@@ -1,4 +1,4 @@
-﻿# Valida CPF Backend
+# Valida CPF Backend
 
 ### It is a Web application in GoLang that receives a CPF (Brazilian Tax Identification Document) as an argument and returns whether it is a valid CPF, and also formats the numbers in the pattern with dots and dash.
 
@@ -14,6 +14,8 @@ In the CPF, the last two numbers are verification digits. The calculation works 
 
 ## **How to use?**
 
-It's very easy, with a GO RUN you will serve port 8080, so in the local host type: http://localhost:8080/valida-cpf?numero=91468384066
+It's very easy, with a `go run .` you will serve port `8080`, so in the local host type: http://localhost:8080/valida-cpf?numero=91468384066
+
 These eleven numbers are a CPF, which our application will check if it is correct. You can replace this number with another one for testing.
-If the number is a correct CPF you will receive the response {"valido":true,"formatado":"914.683.840-66"}, otherwise it is not a correct number you will receive a "valido":"false" and the number formatted.
+
+If the number is a correct CPF you will receive the response `{"valido":true,"formatado":"914.683.840-66"}`, otherwise it is not a correct number you will receive a `"valido":"false"` and the number formatted.
