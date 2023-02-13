@@ -1,6 +1,6 @@
 # Valida CPF Backend
 
-### It is a Web application in GoLang that receives a CPF (Brazilian Tax Identification Document) as an argument and returns whether it is a valid CPF, and also formats the numbers in the pattern with dots and dash.
+It is a Web application in GoLang that receives a CPF (Brazilian Tax Identification Document) as an argument and returns whether it is a valid CPF, and also formats the numbers in the pattern with dots and dash.
 
 ## **Why is this important?**
 
